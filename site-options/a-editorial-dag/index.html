@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atharva Thakur</title>
+  <meta name="description" content="Atharva Thakur — BS+MS Computer Science at Purdue. Causal discovery, graph neural networks, and trustworthy ML.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Theme tokens: edit these to re-skin the whole site ---------- */
+    :root {
+      --bg: #faf8f4;
+      --bg-soft: #f2eee6;
+      --ink: #1c1b19;
+      --ink-soft: #5d5a53;
+      --rule: #ddd7ca;
+      --accent: #b4532a;
+      --serif: "Newsreader", Georgia, "Times New Roman", serif;
+      --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #161513; --bg-soft: #1f1d1a; --ink: #ece8df; --ink-soft: #a29d92; --rule: #34312c; --accent: #e08a5f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #161513; --bg-soft: #1f1d1a; --ink: #ece8df; --ink-soft: #a29d92; --rule: #34312c; --accent: #e08a5f;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--serif); font-size: 1.1875rem; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; text-decoration-thickness: 1.5px; transition: text-decoration-color .15s, color .15s; }
+    a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    .shell { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 5rem; max-width: 70rem; margin: 0 auto; padding: 0 2rem; }
+
+    /* ---------- Sidebar ---------- */
+    aside { position: sticky; top: 0; align-self: start; height: 100vh; padding: 4rem 0 2rem; display: flex; flex-direction: column; }
+    .name { font-size: 2rem; line-height: 1.1; font-weight: 500; letter-spacing: -.01em; margin: 0; }
+    .role { font-family: var(--sans); font-size: .85rem; color: var(--ink-soft); margin: .75rem 0 0; line-height: 1.5; }
+    nav { margin-top: 2.5rem; font-family: var(--sans); font-size: .85rem; display: flex; flex-direction: column; gap: .15rem; }
+    nav a { text-decoration: none; color: var(--ink-soft); padding: .3rem 0; display: flex; align-items: center; gap: .75rem; }
+    nav a::before { content: ""; width: 1.25rem; height: 1px; background: var(--rule); transition: width .2s, background .2s; }
+    nav a:hover, nav a.active { color: var(--ink); }
+    nav a:hover::before, nav a.active::before { width: 2.25rem; background: var(--accent); }
+    .social { font-family: var(--sans); font-size: .85rem; display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; }
+    .social a { color: var(--ink-soft); text-decoration: none; }
+    .social a:hover { color: var(--accent); }
+    .theme-btn { font: inherit; font-family: var(--sans); font-size: .8rem; background: none; border: 1px solid var(--rule); color: var(--ink-soft); border-radius: 99px; padding: .3rem .8rem; cursor: pointer; margin-top: 1.25rem; align-self: flex-start; }
+    .theme-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+
+    /* ---------- Main ---------- */
+    main { padding: 4rem 0 6rem; max-width: 42rem; }
+    section { padding-top: 1rem; margin-bottom: 4.5rem; scroll-margin-top: 2rem; }
+    h2 { font-family: var(--sans); font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 1.75rem; }
+    p { margin: 0 0 1.1rem; }
+    .lede { font-size: 1.65rem; line-height: 1.35; letter-spacing: -.005em; margin-bottom: 1.5rem; }
+    .lede em { color: var(--accent); font-style: italic; }
+    .muted { color: var(--ink-soft); }
+
+    .entry { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1.5rem; padding: 1.4rem 0; border-top: 1px solid var(--rule); }
+    .entry:first-of-type { border-top: 0; padding-top: 0; }
+    .when { font-family: var(--sans); font-size: .78rem; color: var(--ink-soft); padding-top: .5rem; line-height: 1.5; }
+    .entry h3 { font-size: 1.15rem; font-weight: 600; margin: 0; line-height: 1.35; }
+    .entry .where { font-family: var(--sans); font-size: .85rem; color: var(--ink-soft); margin: .15rem 0 .7rem; }
+    .entry ul { margin: 0; padding-left: 1.1rem; font-size: 1.02rem; line-height: 1.55; }
+    .entry li { margin-bottom: .4rem; padding-left: .2rem; }
+    .entry li::marker { color: var(--rule); }
+    b, strong { font-weight: 600; }
+
+    .paper { border: 1px dashed var(--accent); border-radius: 6px; padding: 1.4rem 1.5rem; background: var(--bg-soft); }
+    .paper .tag { font-family: var(--sans); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    .paper h3 { margin: .4rem 0 .3rem; font-size: 1.25rem; font-weight: 500; font-style: italic; }
+    .paper .meta { font-family: var(--sans); font-size: .82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+    .btns { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn { font-family: var(--sans); font-size: .8rem; font-weight: 500; text-decoration: none; border: 1px solid var(--ink); padding: .4rem .9rem; border-radius: 99px; }
+    .btn:hover { background: var(--ink); color: var(--bg); }
+    .btn.disabled { border-color: var(--rule); color: var(--ink-soft); pointer-events: none; }
+
+    .proj { padding: 1.2rem 0; border-top: 1px solid var(--rule); }
+    .proj:first-of-type { border-top: 0; padding-top: 0; }
+    .proj h3 { margin: 0 0 .25rem; font-size: 1.15rem; font-weight: 600; }
+    .proj .badge { font-family: var(--sans); font-size: .7rem; font-weight: 600; background: var(--accent); color: var(--bg); padding: .12rem .5rem; border-radius: 99px; margin-left: .5rem; vertical-align: .1em; letter-spacing: .02em; }
+    .proj p { font-size: 1.02rem; margin: 0; color: var(--ink-soft); }
+
+    .awards { list-style: none; padding: 0; margin: 0; font-size: 1.02rem; }
+    .awards li { display: flex; gap: 1rem; padding: .55rem 0; border-top: 1px solid var(--rule); }
+    .awards li:first-child { border-top: 0; padding-top: 0; }
+    .awards .amt { font-family: var(--sans); font-size: .78rem; color: var(--accent); min-width: 5rem; padding-top: .3rem; font-weight: 600; }
+
+    .skills { font-family: var(--sans); font-size: .88rem; display: grid; grid-template-columns: 6.5rem 1fr; gap: .6rem 1rem; }
+    .skills dt { color: var(--ink-soft); }
+    .skills dd { margin: 0; }
+
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+    .gallery div { aspect-ratio: 4/5; background: var(--bg-soft); border: 1px solid var(--rule); border-radius: 4px; display: grid; place-items: center; font-family: var(--sans); font-size: .72rem; color: var(--ink-soft); }
+    .gallery div:nth-child(2) { aspect-ratio: 1; align-self: end; }
+
+    .elsewhere { list-style: none; padding: 0; margin: 0; font-size: 1.05rem; }
+    .elsewhere li { padding: .5rem 0; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; gap: 1rem; }
+    .elsewhere li:first-child { border-top: 0; }
+    .elsewhere span { font-family: var(--sans); font-size: .8rem; color: var(--ink-soft); padding-top: .25rem; }
+    footer { font-family: var(--sans); font-size: .78rem; color: var(--ink-soft); }
+
+
+    /* ---------- Causal DAG (sidebar) ---------- */
+    .dag-side { flex: 1; min-height: 9rem; display: flex; flex-direction: column; margin: 1.5rem 0 1.25rem; }
+    #dag { flex: 1; width: 100%; min-height: 0; display: block; cursor: crosshair; }
+    .dag-side small { font-family: var(--sans); font-size: .7rem; color: var(--ink-soft); line-height: 1.4; margin-top: .4rem; }
+    .dag-side small b { color: var(--accent); font-weight: 600; }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 62rem) {
+      .shell { grid-template-columns: 1fr; gap: 0; padding: 0 1.25rem; }
+      aside { position: static; height: auto; padding: 2.5rem 0 0; }
+      nav { flex-direction: row; flex-wrap: wrap; gap: .25rem 1.1rem; margin-top: 1.5rem; }
+      nav a::before { display: none; }
+      .social { margin-top: 1.5rem; }
+      main { padding-top: 2.5rem; }
+      .entry { grid-template-columns: 1fr; gap: .25rem; }
+      .when { padding-top: 0; }
+      .lede { font-size: 1.4rem; }
+      .dag-side { flex: none; height: 9rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <aside>
+    <h1 class="name">Atharva Thakur</h1>
+    <p class="role">BS+MS Computer Science, Purdue University<br>ML Research Intern, Seagate</p>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#photography">Photography</a>
+      <a href="#elsewhere">Elsewhere</a>
+    </nav>
+    <button class="theme-btn" id="theme" aria-label="Toggle dark mode">Toggle theme</button>
+    <div class="dag-side">
+      <canvas id="dag" aria-label="Animated causal graph: signals flow from causes to effects"></canvas>
+      <small>Hover or tap a node: <b>do(X)</b> lights up everything downstream.</small>
+    </div>
+    <div class="social">
+      <a href="mailto:thakur27@purdue.edu">Email</a>
+      <a href="https://github.com/Thakur-Atharva">GitHub</a>
+      <a href="https://www.linkedin.com/in/atharva-thakur">LinkedIn</a>
+      <a href="resume.pdf">CV</a>
+    </div>
+  </aside>
+
+  <main>
+    <section id="about">
+      <h2>About</h2>
+      <p class="lede">I build machine learning systems that can say <em>why</em> they believe what they believe.</p>
+      <p>I'm a BS+MS Computer Science student at Purdue, graduating in May 2027, writing a thesis on causal discovery with Dr. Bruno Ribeiro in the MINDS Lab. My interests are causality, graph neural networks, and financial modeling.</p>
+      <p>Right now I split my time between diagnosing faults in hard-drive manufacturing at Seagate, studying when retrieval-augmented LLMs hallucinate, and teaching. Outside of work I play chess and (soon, on this site) take photographs.</p>
+      <p class="muted"><a href="https://www.cs.purdue.edu/people/graduate-students/thakur27.html">Purdue CS profile ↗</a></p>
+    </section>
+
+    <section id="research">
+      <h2>Research</h2>
+      <div class="paper">
+        <span class="tag">Under review · ACL ARR, October 2026</span>
+        <h3>Paper title coming soon</h3>
+        <div class="meta">Atharva Thakur, … · Bruno Ribeiro</div>
+        <div class="btns">
+          <a class="btn disabled" href="#research" aria-disabled="true">arXiv — coming soon</a>
+          <a class="btn disabled" href="#research" aria-disabled="true">Code</a>
+        </div>
+      </div>
+      <p style="margin-top:1.5rem" class="muted">Also in progress: optimizing causal discovery algorithms with monotonic refinement (thesis work), and a human-in-the-loop retrieval system that cut expert time by 60%.</p>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+
+      <div class="entry">
+        <div class="when">May 2026 –<br>Present</div>
+        <div>
+          <h3>ML Research Intern</h3>
+          <div class="where">Seagate Technology · Remote</div>
+          <ul>
+            <li>Built an agentic <b>root cause analysis</b> framework for diagnosing faults in manufacturing lines from high-dimensional, sparse, time-series data.</li>
+            <li>Quantified diagnosis trustworthiness with PR-AUC and entropy reduction, reaching <b>73%</b> of black-box performance while staying interpretable.</li>
+            <li>Surfaced <b>16 new verified cause–effect mappings</b>, cutting diagnosis time from months to minutes.</li>
+            <li>Continuing as a funded graduate research assistant for Fall 26 and Spring 27.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="when">May 2025 –<br>Present</div>
+        <div>
+          <h3>Graduate Researcher</h3>
+          <div class="where">Purdue MINDS Lab · West Lafayette, IN</div>
+          <ul>
+            <li>Investigating LLM hallucinations in RAG systems; optimizing causal discovery via monotonic refinement.</li>
+            <li>Built a human-in-the-loop RAG system for staff training that reduced expert requirement by <b>60%</b>.</li>
+            <li>Mentored six undergraduates across two projects.</li>
+            <li>1st place, Krenicki Center research showcase.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="when">June 2024 –<br>Aug 2025</div>
+        <div>
+          <h3>Undergraduate Researcher</h3>
+          <div class="where">Purdue Institute of Digital Forestry</div>
+          <ul><li>Trained a PyTorch CNN (0.84 AUC) to detect canker disease in individual trees from drone imagery.</li></ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="when">May – Aug<br>2023</div>
+        <div>
+          <h3>Data Analytics Intern</h3>
+          <div class="where">Netscribes · Mumbai, India</div>
+          <ul>
+            <li>Fine-tuned BERT to classify ONDC marketplace products at <b>94%</b> accuracy.</li>
+            <li>Trained a Faster R-CNN logo detector (95%) and cut deployment cost 60% with CPU-only AWS inference.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="proj">
+        <h3>IMC Prosperity 4 <span class="badge">154 / 18,803 · Top 1%</span></h3>
+        <p>Algorithmic trading competition: options priced with Black–Scholes on a parabola-fitted IV smile, mean reversion modeled as AR(1), strategies stress-tested over hundreds of Monte Carlo sessions.</p>
+      </div>
+      <div class="proj">
+        <h3>WiseBucks</h3>
+        <p>Portfolio evaluation and return forecasting for the S&amp;P 500 from financial metrics, Twitter sentiment, and management commentary. Won $6,000 at the JMEC startup incubator.</p>
+      </div>
+      <div class="proj">
+        <h3>Soil moisture forecasting with John Deere</h3>
+        <p>XGBoost on geospatial and weather data to forecast soil moisture across the Midwest. Best 3-minute presentation at the Data Mine symposium.</p>
+      </div>
+      <div class="proj">
+        <h3>GPT-2 from scratch</h3>
+        <p>Built and trained with rotary positional embeddings and KV-cache optimization for Purdue CS 587.</p>
+      </div>
+      <p class="muted" style="margin-top:1.5rem">More coming — this section is built to grow.</p>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <p>Teaching assistant since August 2023: Head TA for CS 390FND, plus CS 180 (Java) and ENGR 133 (Python, MATLAB). I designed an ML project where students build traffic-sign classifiers from scratch, and contributed to the ENGR 133 course materials.</p>
+      <p><a href="https://purdue-engr-13300.github.io/2026-autumn/Appendices/contributors.html">ENGR 133 course materials ↗</a></p>
+    </section>
+
+    <section id="photography">
+      <h2>Photography</h2>
+      <div class="gallery" aria-label="Photo gallery placeholder">
+        <div>photo</div><div>photo</div><div>photo</div>
+      </div>
+      <p class="muted" style="margin-top:1rem; font-size:.95rem">Coming soon.</p>
+    </section>
+
+    <section id="elsewhere">
+      <h2>Elsewhere</h2>
+      <ul class="elsewhere">
+        <li><a href="https://github.com/Thakur-Atharva">GitHub</a><span>code</span></li>
+        <li><a href="https://www.linkedin.com/in/atharva-thakur">LinkedIn</a><span>work</span></li>
+        <li><a href="https://www.cs.purdue.edu/people/graduate-students/thakur27.html">Purdue CS</a><span>school</span></li>
+        <li><a href="https://www.chess.com/member/atharvat_04">Chess.com — atharvat_04</a><span>♞ play</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <dl class="skills">
+        <dt>Languages</dt><dd>Python, C++, Java, MATLAB, SQL</dd>
+        <dt>Libraries</dt><dd>PyTorch, NumPy, Pandas, SciPy, scikit-learn, FastAPI, Plotly</dd>
+        <dt>Tools</dt><dd>Git, Linux, vLLM, W&amp;B, AWS, Databricks</dd>
+      </dl>
+    </section>
+
+    <footer>© <span id="yr"></span> Atharva Thakur · West Lafayette, IN</footer>
+  </main>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+  // highlight current section in nav
+  const links = [...document.querySelectorAll('nav a')];
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.hash === '#' + e.target.id));
+  }), { rootMargin: '-30% 0px -60% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+
+  /* ---------- Animated causal DAG ----------
+     Layered nodes, directed edges, small "signals" flowing cause -> effect.
+     Colors come from the page's CSS variables, so it follows light/dark mode.
+     Tweak LAYERS to change the shape of the graph. */
+  (function () {
+    const cv = document.getElementById('dag'), ctx = cv.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LAYERS = [2, 3, 3, 3, 2];
+    let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+    const nodes = [], edges = [];
+    LAYERS.forEach((n, l) => { for (let i = 0; i < n; i++) nodes.push({ l, i, n, ph: rnd() * 6.28 }); });
+    const layer = l => nodes.filter(n => n.l === l);
+    for (let l = 0; l < LAYERS.length - 1; l++) {
+      const a = layer(l), b = layer(l + 1);
+      a.forEach(s => { const k = 1 + (rnd() > .55); for (let j = 0; j < k; j++) { const t = b[Math.floor(rnd() * b.length)]; if (!edges.some(e => e.s === s && e.t === t)) edges.push({ s, t }); } });
+      b.forEach(t => { if (!edges.some(e => e.t === t)) edges.push({ s: a[Math.floor(rnd() * a.length)], t }); });
+    }
+    edges.forEach(e => { e.p = [rnd(), rnd()]; e.sp = .0015 + rnd() * .0015; });
+
+    let W, H, mx = -999, my = -999, col;
+    const v = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+    function resize() {
+      const d = Math.min(devicePixelRatio || 1, 2);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+      if (reduce) draw(0);
+    }
+    function pos(n, t) {
+      const f = n.l / (LAYERS.length - 1), g = (n.i + .5) / n.n;
+      const dx = Math.sin(t * .0006 + n.ph) * 5, dy = Math.cos(t * .0007 + n.ph * 1.3) * 5;
+      return H > W   // tall sidebar: flow top -> bottom; short (mobile): flow left -> right
+        ? [W * (.1 + .8 * g) + dx, H * (.06 + .88 * f) + dy]
+        : [W * (.05 + .9 * f) + dx, H * (.14 + .72 * g) + dy];
+    }
+    function arrow(x1, y1, x2, y2, r, c, w) {
+      const a = Math.atan2(y2 - y1, x2 - x1), sx = x1 + Math.cos(a) * r, sy = y1 + Math.sin(a) * r,
+            ex = x2 - Math.cos(a) * (r + 2), ey = y2 - Math.sin(a) * (r + 2);
+      ctx.strokeStyle = ctx.fillStyle = c; ctx.lineWidth = w;
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ex, ey);
+      ctx.lineTo(ex - Math.cos(a - .4) * 7, ey - Math.sin(a - .4) * 7);
+      ctx.lineTo(ex - Math.cos(a + .4) * 7, ey - Math.sin(a + .4) * 7); ctx.fill();
+    }
+    function draw(t) {
+      col = { bg: v('--bg'), soft: v('--ink-soft'), rule: v('--rule'), acc: v('--accent'), ink: v('--ink') };
+      ctx.clearRect(0, 0, W, H);
+      const P = nodes.map(n => pos(n, t));
+      let hot = -1, best = 60;
+      P.forEach((p, i) => { const d = Math.hypot(p[0] - mx, p[1] - my); if (d < best) { best = d; hot = i; } });
+      const down = new Set();
+      if (hot >= 0) { const q = [nodes[hot]]; while (q.length) { const c = q.pop(); if (down.has(c)) continue; down.add(c); edges.forEach(e => e.s === c && q.push(e.t)); } }
+
+      edges.forEach(e => {
+        const [x1, y1] = P[nodes.indexOf(e.s)], [x2, y2] = P[nodes.indexOf(e.t)], on = hot >= 0 && down.has(e.s);
+        arrow(x1, y1, x2, y2, 7, on ? col.acc : col.rule, on ? 1.6 : 1.2);
+        e.p.forEach((u, k) => {
+          if (!reduce) e.p[k] = (u + e.sp) % 1;
+          ctx.fillStyle = on ? col.acc : col.soft; ctx.globalAlpha = on ? 1 : .7;
+          ctx.beginPath(); ctx.arc(x1 + (x2 - x1) * e.p[k], y1 + (y2 - y1) * e.p[k], on ? 2.4 : 1.8, 0, 6.28); ctx.fill(); ctx.globalAlpha = 1;
+        });
+      });
+      nodes.forEach((n, i) => {
+        const [x, y] = P[i], on = hot >= 0 && down.has(n), isHot = i === hot, c = on ? col.acc : col.soft;
+        ctx.fillStyle = col.bg; ctx.strokeStyle = c; ctx.lineWidth = isHot ? 2.4 : 1.5;
+        ctx.beginPath(); ctx.arc(x, y, isHot ? 8 : 6, 0, 6.28); ctx.fill(); ctx.stroke();
+        if (isHot) { ctx.fillStyle = col.acc; ctx.beginPath(); ctx.arc(x, y, 2.8, 0, 6.28); ctx.fill();
+          ctx.font = '600 11px Inter, sans-serif'; ctx.fillText('do(X' + (i + 1) + ')', x + 12, y - 11); }
+      });
+    }
+    function loop(t) { draw(t); requestAnimationFrame(loop); }
+    addEventListener('resize', resize);
+    cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+    cv.addEventListener('pointerleave', () => { mx = my = -999; });
+    // redraw once on theme toggle when animation is off
+    document.getElementById('theme').addEventListener('click', () => reduce && setTimeout(() => draw(0), 0));
+    resize(); if (!reduce) requestAnimationFrame(loop);
+  })();
+</script>
+</body>
+</html>

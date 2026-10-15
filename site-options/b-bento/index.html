@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atharva Thakur</title>
+  <meta name="description" content="Atharva Thakur — BS+MS Computer Science at Purdue. Causal discovery, graph neural networks, and trustworthy ML.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Theme tokens ---------- */
+    :root {
+      --bg: #efeee9;
+      --card: #ffffff;
+      --card-2: #f7f6f2;
+      --ink: #16161a;
+      --ink-soft: #6a6a72;
+      --line: #e3e1da;
+      --accent: #4f46e5;
+      --accent-ink: #ffffff;
+      --accent-soft: #e8e7fc;
+      --gold: #e9b44c;
+      --sq-a: #eeeed2; --sq-b: #769656;   /* chess board squares */
+      --radius: 22px;
+      --head: "Space Grotesk", system-ui, sans-serif;
+      --body: "Inter", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e0e11; --card: #17171c; --card-2: #1d1d23; --ink: #f1f0ec; --ink-soft: #9b9ba5; --line: #2a2a32;
+        --accent: #8b85ff; --accent-ink: #0e0e11; --accent-soft: #24233f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0e0e11; --card: #17171c; --card-2: #1d1d23; --ink: #f1f0ec; --ink-soft: #9b9ba5; --line: #2a2a32;
+      --accent: #8b85ff; --accent-ink: #0e0e11; --accent-soft: #24233f;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: var(--head); margin: 0; letter-spacing: -.02em; }
+
+    .wrap { max-width: 72rem; margin: 0 auto; padding: 1.25rem 1.25rem 4rem; }
+
+    /* top bar */
+    .top { display: flex; justify-content: space-between; align-items: center; padding: .5rem .25rem 1.25rem; font-family: var(--head); }
+    .top .logo { font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+    .top .logo span { color: var(--accent); }
+    .top nav { display: flex; gap: .25rem; align-items: center; font-size: .9rem; }
+    .top nav a { text-decoration: none; padding: .4rem .8rem; border-radius: 99px; color: var(--ink-soft); }
+    .top nav a:hover { background: var(--card); color: var(--ink); }
+    .top button { border: 1px solid var(--line); background: var(--card); color: var(--ink); width: 2.2rem; height: 2.2rem; border-radius: 50%; cursor: pointer; font-size: 1rem; margin-left: .4rem; }
+
+    /* bento grid */
+    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem; position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    a.card { text-decoration: none; display: block; }
+    a.card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 30px -16px color-mix(in srgb, var(--accent) 60%, transparent); }
+    .label { font-family: var(--head); font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+    .label i { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+    .hero { grid-column: span 8; padding: 2.4rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 22rem; background: linear-gradient(135deg, var(--card) 40%, var(--accent-soft)); }
+    .hero .hi { font-family: var(--head); color: var(--accent); font-weight: 600; margin-bottom: .75rem; }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1; font-weight: 700; }
+    .hero p { color: var(--ink-soft); font-size: 1.1rem; max-width: 34rem; margin: 1.25rem 0 0; }
+    .hero p b { color: var(--ink); font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.75rem; }
+    .chip { font-size: .8rem; font-weight: 500; padding: .35rem .8rem; border-radius: 99px; background: var(--card); border: 1px solid var(--line); }
+    .avatar { position: absolute; right: 2rem; top: 2rem; width: 5.5rem; height: 5.5rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-family: var(--head); font-weight: 700; font-size: 1.9rem; overflow: hidden; }
+    .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    .now { grid-column: span 4; background: var(--ink); color: var(--bg); border-color: var(--ink); display: flex; flex-direction: column; }
+    .now .next { margin-top: auto; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent); font-size: .85rem; display: grid; gap: .5rem; }
+    .now .next div { display: flex; justify-content: space-between; gap: 1rem; }
+    .now .next span:first-child { opacity: .55; }
+    .now .label { color: color-mix(in srgb, var(--bg) 60%, transparent); }
+    .now h3 { font-size: 1.5rem; line-height: 1.15; }
+    .now p { opacity: .75; font-size: .93rem; margin: .8rem 0 0; }
+    .pulse { width: .55rem; height: .55rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 #4ade80aa; animation: pulse 2s infinite; display: inline-block; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 .6rem #4ade8000; } 100% { box-shadow: 0 0 0 0 #4ade8000; } }
+
+    .stat { grid-column: span 3; }
+    .stat .big { font-family: var(--head); font-size: 3rem; font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+    .stat .big small { font-size: 1.1rem; color: var(--ink-soft); font-weight: 500; letter-spacing: 0; }
+    .stat p { color: var(--ink-soft); font-size: .88rem; margin: .6rem 0 0; }
+
+    .paper { grid-column: span 6; border-style: dashed; border-color: var(--accent); background: var(--card-2); }
+    .paper h3 { font-size: 1.4rem; line-height: 1.2; margin-bottom: .5rem; }
+    .paper p { color: var(--ink-soft); font-size: .92rem; margin: 0 0 1.1rem; }
+    .btn { display: inline-block; font-family: var(--head); font-weight: 600; font-size: .85rem; padding: .5rem 1rem; border-radius: 99px; background: var(--accent); color: var(--accent-ink); text-decoration: none; margin-right: .4rem; }
+    .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink-soft); pointer-events: none; }
+
+    .chess { grid-column: span 3; padding: 0; min-height: 15rem; color: #fff; }
+    .chess .board { position: absolute; inset: 0; background-image: conic-gradient(var(--sq-b) 25%, var(--sq-a) 0 50%, var(--sq-b) 0 75%, var(--sq-a) 0); background-size: 5rem 5rem; opacity: .95; }
+    .chess .over { position: absolute; inset: 0; background: linear-gradient(to top, #000000d0, #00000000 70%); }
+    .chess .txt { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.3rem; }
+    .chess .king { font-size: 3.6rem; position: absolute; right: 1.2rem; top: .8rem; line-height: 1; filter: drop-shadow(0 4px 6px #0006); }
+    .chess h3 { font-size: 1.3rem; } .chess span { font-size: .85rem; opacity: .85; }
+
+    .links { grid-column: span 3; }
+    .links ul { list-style: none; margin: 0; padding: 0; }
+    .links li a { display: flex; justify-content: space-between; text-decoration: none; padding: .55rem 0; border-top: 1px solid var(--line); font-family: var(--head); font-weight: 500; }
+    .links li:first-child a { border-top: 0; padding-top: 0; }
+    .links li a:hover { color: var(--accent); }
+    .links li a span { color: var(--ink-soft); transition: transform .15s; }
+    .links li a:hover span { transform: translate(2px, -2px); color: var(--accent); }
+
+    .proj { grid-column: span 4; display: flex; flex-direction: column; }
+    .proj h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+    .proj p { color: var(--ink-soft); font-size: .92rem; margin: 0 0 1rem; }
+    .proj .tags { margin-top: auto; display: flex; gap: .4rem; flex-wrap: wrap; }
+    .proj .tags span { font-size: .72rem; padding: .2rem .6rem; border-radius: 99px; background: var(--card-2); border: 1px solid var(--line); color: var(--ink-soft); }
+    .proj .ribbon { position: absolute; top: 1.2rem; right: 1.2rem; background: var(--gold); color: #3a2a00; font-family: var(--head); font-size: .72rem; font-weight: 700; padding: .25rem .65rem; border-radius: 99px; }
+
+    .photos { grid-column: span 8; }
+    .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 5rem 5rem; gap: .5rem; }
+    .mosaic div { border-radius: 12px; background: linear-gradient(135deg, var(--accent-soft), var(--card-2)); border: 1px solid var(--line); }
+    .mosaic div:nth-child(1) { grid-row: span 2; grid-column: span 2; }
+    .mosaic div:nth-child(4) { grid-column: span 2; }
+    .photos p { margin: 1rem 0 0; color: var(--ink-soft); font-size: .9rem; }
+
+    .teach { grid-column: span 6; }
+    .teach p { color: var(--ink-soft); font-size: .95rem; margin: 0 0 1rem; }
+    .teach a { font-family: var(--head); font-weight: 600; color: var(--accent); text-decoration: none; }
+    .teach a:hover { text-decoration: underline; }
+
+    /* experience */
+    .exp { grid-column: span 12; padding: 2rem; }
+    .row { display: grid; grid-template-columns: 11rem 1fr 1fr; gap: 1.5rem; padding: 1.4rem 0; border-top: 1px solid var(--line); }
+    .row:first-of-type { border-top: 0; padding-top: .4rem; }
+    .row .date { font-size: .85rem; color: var(--ink-soft); font-family: var(--head); padding-top: .15rem; }
+    .row h3 { font-size: 1.2rem; }
+    .row .org { color: var(--accent); font-weight: 500; font-size: .92rem; margin-top: .15rem; }
+    .row ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); font-size: .93rem; }
+    .row li { margin-bottom: .35rem; }
+    .row li b { color: var(--ink); font-weight: 600; }
+
+    .skills { grid-column: span 12; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skills h4 { font-family: var(--head); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 .6rem; }
+    .skills p { margin: 0; }
+
+    footer { text-align: center; color: var(--ink-soft); font-size: .82rem; margin-top: 2.5rem; }
+
+    /* responsive */
+    @media (max-width: 62rem) {
+      .hero, .now, .paper, .photos, .teach { grid-column: span 12; }
+      .stat, .chess, .links { grid-column: span 6; }
+      .proj { grid-column: span 12; }
+      .row { grid-template-columns: 1fr; gap: .5rem; }
+      .skills { grid-template-columns: 1fr; }
+      .top nav a:not(.keep) { display: none; }
+    }
+    @media (max-width: 36rem) {
+      .stat, .chess, .links { grid-column: span 12; }
+      .hero { padding: 1.6rem; min-height: 0; } .avatar { position: static; margin-bottom: 1.25rem; width: 4.5rem; height: 4.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="logo" href="#">atharva<span>.</span></a>
+    <nav>
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#photos">Photography</a>
+      <a class="keep" href="resume.pdf">CV</a>
+      <button id="theme" aria-label="Toggle dark mode">◐</button>
+    </nav>
+  </header>
+
+  <main class="bento">
+
+    <section class="card hero">
+      <div class="avatar"><span>AT</span><img src="avatar.jpg" alt="" onerror="this.remove()"></div>
+      <div>
+        <div class="hi">Hi, I'm</div>
+        <h1>Atharva<br>Thakur.</h1>
+        <p>BS+MS Computer Science student at <b>Purdue</b>. I work on <b>causal discovery</b>, graph neural networks and ML systems that explain themselves, plus a bit of financial modeling.</p>
+      </div>
+      <div class="chips">
+        <span class="chip">Causality</span><span class="chip">Graph Neural Networks</span><span class="chip">RAG &amp; LLMs</span><span class="chip">Quant finance</span>
+      </div>
+    </section>
+
+    <section class="card now">
+      <div class="label"><span class="pulse"></span> Right now</div>
+      <h3>ML Research Intern at Seagate</h3>
+      <p>Agentic root-cause analysis for hard-drive manufacturing. Also a graduate researcher in Purdue's MINDS Lab, writing a thesis on causal discovery.</p>
+      <div class="next">
+        <div><span>Next</span><span>Funded GRA · Fall 26 – Spring 27</span></div>
+        <div><span>Under review</span><span>ACL ARR · Oct 2026</span></div>
+        <div><span>Graduating</span><span>May 2027</span></div>
+      </div>
+    </section>
+
+    <section class="card stat">
+      <div class="label"><i></i>Trading comp</div>
+      <div class="big">154<small> / 18,803</small></div>
+      <p>IMC Prosperity 4 — top 1% of teams worldwide.</p>
+    </section>
+    <section class="card stat">
+      <div class="label"><i></i>Impact</div>
+      <div class="big">16</div>
+      <p>new verified cause–effect mappings found at Seagate. Diagnosis: months → minutes.</p>
+    </section>
+
+    <a class="card chess" href="https://www.chess.com/member/atharvat_04">
+      <div class="board"></div><div class="over"></div><div class="king">♞</div>
+      <div class="txt"><h3>Let's play chess</h3><span>chess.com/atharvat_04 ↗</span></div>
+    </a>
+
+    <section class="card links">
+      <div class="label"><i></i>Find me</div>
+      <ul>
+        <li><a href="https://github.com/Thakur-Atharva">GitHub <span>↗</span></a></li>
+        <li><a href="https://www.linkedin.com/in/atharva-thakur">LinkedIn <span>↗</span></a></li>
+        <li><a href="https://www.cs.purdue.edu/people/graduate-students/thakur27.html">Purdue CS <span>↗</span></a></li>
+        <li><a href="mailto:thakur27@purdue.edu">Email <span>↗</span></a></li>
+      </ul>
+    </section>
+
+    <section class="card paper" id="research">
+      <div class="label"><i></i>Research · Under review</div>
+      <h3>Paper title coming soon</h3>
+      <p>Submitted to ACL ARR (October 2026). Atharva Thakur, … Bruno Ribeiro. Preprint arriving on arXiv shortly.</p>
+      <a class="btn ghost" href="#research">arXiv — soon</a><a class="btn ghost" href="#research">Code</a>
+    </section>
+
+    <section class="card teach">
+      <div class="label"><i></i>Teaching</div>
+      <p>TA since 2023 — Head TA for CS 390FND, plus CS 180 (Java) and ENGR 133 (Python / MATLAB). I design homeworks and course projects, e.g. building traffic-sign classifiers from scratch.</p>
+      <a href="https://purdue-engr-13300.github.io/2026-autumn/Appendices/contributors.html">ENGR 133 course materials →</a>
+    </section>
+
+    <section class="card exp" id="experience">
+      <div class="label"><i></i>Experience</div>
+      <div class="row">
+        <div class="date">May 2026 – Now</div>
+        <div><h3>ML Research Intern</h3><div class="org">Seagate Technology</div></div>
+        <ul>
+          <li>Agentic <b>root cause analysis</b> over sparse, high-dimensional time-series data.</li>
+          <li>Trust quantified via PR-AUC &amp; entropy reduction: <b>73%</b> of black-box performance, fully interpretable.</li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="date">May 2025 – Now</div>
+        <div><h3>Graduate Researcher</h3><div class="org">Purdue MINDS Lab</div></div>
+        <ul>
+          <li>LLM hallucinations in RAG; causal discovery via monotonic refinement.</li>
+          <li>Human-in-the-loop RAG cut expert requirement by <b>60%</b>. Mentored six undergrads.</li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="date">Jun 2024 – Aug 2025</div>
+        <div><h3>Undergraduate Researcher</h3><div class="org">Purdue Institute of Digital Forestry</div></div>
+        <ul><li>PyTorch CNN (0.84 AUC) detecting canker disease in trees from drone imagery.</li></ul>
+      </div>
+      <div class="row">
+        <div class="date">May – Aug 2023</div>
+        <div><h3>Data Analytics Intern</h3><div class="org">Netscribes</div></div>
+        <ul><li>BERT product classifier at <b>94%</b>; Faster R-CNN logo detector at 95% with 60% cheaper CPU-only deployment.</li></ul>
+      </div>
+    </section>
+
+    <article class="card proj" id="projects">
+      <span class="ribbon">Top 1%</span>
+      <div class="label"><i></i>Project</div>
+      <h3>IMC Prosperity 4</h3>
+      <p>Options priced with Black–Scholes on a fitted IV smile, mean-reverting assets modeled as AR(1), strategies stress-tested across hundreds of Monte Carlo sessions.</p>
+      <div class="tags"><span>Quant</span><span>Python</span><span>Monte Carlo</span></div>
+    </article>
+    <article class="card proj">
+      <span class="ribbon">$6,000</span>
+      <div class="label"><i></i>Project</div>
+      <h3>WiseBucks</h3>
+      <p>S&amp;P 500 portfolio evaluation and forecasting from 12 features: financials, Twitter sentiment, management commentary.</p>
+      <div class="tags"><span>AdaBoost</span><span>NLP</span><span>Finance</span></div>
+    </article>
+    <article class="card proj">
+      <div class="label"><i></i>Project</div>
+      <h3>Soil moisture × John Deere</h3>
+      <p>XGBoost on geospatial and weather data to forecast soil moisture across the Midwest. Best 3-minute talk at the Data Mine symposium.</p>
+      <div class="tags"><span>XGBoost</span><span>Geospatial</span></div>
+    </article>
+    <article class="card proj">
+      <div class="label"><i></i>Project</div>
+      <h3>GPT-2 from scratch</h3>
+      <p>Rotary positional embeddings and KV-cache optimization, trained end to end for CS 587.</p>
+      <div class="tags"><span>PyTorch</span><span>Transformers</span></div>
+    </article>
+
+    <section class="card photos" id="photos">
+      <div class="label"><i></i>Photography</div>
+      <div class="mosaic"><div></div><div></div><div></div><div></div></div>
+      <p>A gallery is on its way.</p>
+    </section>
+
+    <section class="card skills">
+      <div><h4>Languages</h4><p>Python · C++ · Java · MATLAB · SQL</p></div>
+      <div><h4>Libraries</h4><p>PyTorch · NumPy · Pandas · SciPy · scikit-learn · FastAPI</p></div>
+      <div><h4>Tools</h4><p>Git · Linux · vLLM · W&amp;B · AWS · Databricks</p></div>
+    </section>
+  </main>
+
+  <footer>© <span id="yr"></span> Atharva Thakur · West Lafayette, IN</footer>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+</script>
+</body>
+</html>

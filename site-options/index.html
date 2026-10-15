@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pick a design</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f5f4f0; --card:#fff; --ink:#18181b; --soft:#6b6b73; --line:#e2e0d9; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#111113; --card:#1a1a1e; --ink:#f1f0ec; --soft:#9a9aa3; --line:#2a2a30; } }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,sans-serif; padding:3rem 1.25rem; }
+    main { max-width: 64rem; margin: 0 auto; }
+    h1 { margin:0 0 .4rem; letter-spacing:-.02em; } p { color:var(--soft); margin:0 0 2rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(18rem,1fr)); gap:1.25rem; }
+    a { text-decoration:none; color:inherit; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:transform .15s, box-shadow .15s; display:block; }
+    a:hover { transform:translateY(-3px); box-shadow:0 14px 30px -18px #000; }
+    img { width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; display:block; border-bottom:1px solid var(--line); background:var(--line); }
+    div { padding:1rem 1.2rem 1.3rem; } b { font-size:1.1rem; } span { display:block; color:var(--soft); font-size:.9rem; margin-top:.25rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Choose a design</h1>
+  <p>Four takes on the same content. Each folder is fully self-contained: open it, click around, then tell me which one to keep.</p>
+  <div class="grid">
+    <a href="a-editorial/"><img src="previews/a.png" alt="" onerror="this.remove()"><div><b>A · Editorial</b><span>Quiet, serif, paper-like. Sticky sidebar, reads like a research homepage.</span></div></a>
+    <a href="a-editorial-dag/"><img src="previews/a-dag.png" alt="" onerror="this.remove()"><div><b>A + DAG · Editorial with causal graph</b><span>Same as A, plus a subtle interactive causal DAG under the intro. Follows light/dark mode.</span></div></a>
+    <a href="b-bento/"><img src="previews/b.png" alt="" onerror="this.remove()"><div><b>B · Bento</b><span>Modern card grid with stats, a chessboard card, and a project showcase.</span></div></a>
+    <a href="c-causal-graph/"><img src="previews/c.png" alt="" onerror="this.remove()"><div><b>C · Causal Graph</b><span>Dark and technical, with an interactive causal DAG as the hero.</span></div></a>
+  </div>
+</main>
+</body>
+</html>
