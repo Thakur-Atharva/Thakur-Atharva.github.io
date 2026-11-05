@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Atharva Thakur</title>
   <meta name="description" content="Atharva Thakur — BS+MS Computer Science at Purdue. Causal discovery, graph neural networks, and trustworthy ML.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b4532a'/%3E%3Cpath d='M9 10L23 16M9 22L23 16M9 10L9 22' stroke='%23faf8f4' stroke-width='2' fill='none'/%3E%3Ccircle cx='9' cy='10' r='3.5' fill='%23faf8f4'/%3E%3Ccircle cx='9' cy='22' r='3.5' fill='%23faf8f4'/%3E%3Ccircle cx='23' cy='16' r='3.5' fill='%23faf8f4'/%3E%3C/svg%3E">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
@@ -81,6 +83,8 @@
     .paper .tag { font-family: var(--sans); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
     .paper h3 { margin: .4rem 0 .3rem; font-size: 1.25rem; font-weight: 500; font-style: italic; }
     .paper .meta { font-family: var(--sans); font-size: .82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+    .paper h3 a { text-decoration: none; }
+    .paper-sum { font-size: 1rem; color: var(--ink-soft); margin: 0 0 1.1rem; line-height: 1.55; }
     .btns { display: flex; gap: .6rem; flex-wrap: wrap; }
     .btn { font-family: var(--sans); font-size: .8rem; font-weight: 500; text-decoration: none; border: 1px solid var(--ink); padding: .4rem .9rem; border-radius: 99px; }
     .btn:hover { background: var(--ink); color: var(--bg); }
@@ -173,12 +177,14 @@
     <section id="research">
       <h2>Research</h2>
       <div class="paper">
-        <span class="tag">Under review · ACL ARR, October 2026</span>
-        <h3>Paper title coming soon</h3>
-        <div class="meta">Atharva Thakur, … · Bruno Ribeiro</div>
+        <span class="tag">Preprint · Under review at ACL ARR, October 2026</span>
+        <h3><a href="https://arxiv.org/abs/2610.28340">DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge</a></h3>
+        <div class="meta"><b>Atharva Thakur</b>, Abulhair Saparov, Bruno Ribeiro · arXiv:2610.28340</div>
+        <p class="paper-sum">A dynamic benchmark for whether RAG systems know when to say &ldquo;I don&rsquo;t know.&rdquo; Across 27 LLMs, iterative retrieval lowers correct abstention in 30 of 40 configurations, and without retrieval, enabling thinking lowers it for 8 of 13 models.</p>
         <div class="btns">
-          <a class="btn disabled" href="#research" aria-disabled="true">arXiv — coming soon</a>
-          <a class="btn disabled" href="#research" aria-disabled="true">Code</a>
+          <a class="btn" href="https://arxiv.org/abs/2610.28340">arXiv</a>
+          <a class="btn" href="https://arxiv.org/pdf/2610.28340">PDF</a>
+          <a class="btn" href="https://github.com/Thakur-Atharva/declinecraft-benchmark">Code</a>
         </div>
       </div>
       <p style="margin-top:1.5rem" class="muted">Also in progress: optimizing causal discovery algorithms with monotonic refinement (thesis work), and a human-in-the-loop retrieval system that cut expert time by 60%.</p>
