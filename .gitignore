@@ -75,3 +75,12 @@ Desktop.ini
 
 *.log
 npm-debug.log*
+
+# ============================================================================
+# Private reference files (never published)
+# ============================================================================
+
+# Full resume, kept locally as the source of truth for site content
+Atharva_Thakur_Resume.pdf
+# Agent instructions
+AGENTS.md
